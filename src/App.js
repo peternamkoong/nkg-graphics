@@ -10,6 +10,7 @@ import Catalog from "./components/catalog.component";
 import Homepage from "./components/homepage.component";
 import Contact from "./components/contact.component";
 import Switch from "react-bootstrap/esm/Switch";
+import About from "./components/about.component";
 
 export default function App() {
     return (
@@ -29,6 +30,9 @@ export default function App() {
                     </Route>
                     <Route exact path="/die-cut-stickers">
                         <Catalog />
+                    </Route>
+                    <Route exact path="/about">
+                        <About />
                     </Route>
                     <Route exact path="/contact">
                         <Contact />
