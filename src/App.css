@@ -1,3 +1,20 @@
+* {
+    font-family: 'Roboto', sans-serif
+}
+
+.instructionsTable {
+    font-size: large;
+    border-collapse:separate; 
+    border-spacing:1em;
+}
+.instructionsRow {
+    padding-bottom: 100px;
+}
+.instructionSteps  {
+    font-weight: bold;
+    width: 5rem;
+}
+
 .page-container {
     min-height: 100vh;
     display:flex;

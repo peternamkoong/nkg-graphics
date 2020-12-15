@@ -42,18 +42,16 @@ export default function Contact(props) {
 
     return (
         <>
-            <Jumbotron className="m-0 p-0" fluid style={{ backgroundColor: "white" }}>
+            <Jumbotron className="mb-0" fluid>
                 <Container>
                     <Row>
                         <Col>
-                            <h1 style={{ fontSize: "75px" }} className="roboto bold mb-3">
-                                Contact Us
-                            </h1>
+                            <h1 style={{ fontSize: "75px", fontWeight: "bold" }}>Contact Us</h1>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <p className="roboto">
+                            <p>
                                 For any inquiries related to an existing or new order, please fill out the form below.
                                 We will try and respond back within 1 to 2 business days.
                             </p>
@@ -65,7 +63,7 @@ export default function Contact(props) {
                     </Alert>
                 </Container>
             </Jumbotron>
-            <Jumbotron>
+            <Jumbotron className="mb-0" style={{ backgroundColor: "#fbfbfb" }}>
                 <Container>
                     <Row className="justify-content-md-center">
                         <Col xs={6}>

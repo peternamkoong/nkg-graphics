@@ -11,6 +11,7 @@ import Homepage from "./components/homepage.component";
 import Contact from "./components/contact.component";
 import Switch from "react-bootstrap/esm/Switch";
 import About from "./components/about.component";
+import CatalogItem from "./components/catalogItem.component";
 
 export default function App() {
     return (
@@ -23,13 +24,22 @@ export default function App() {
                         <Homepage />
                     </Route>
                     <Route exact path="/transfer-stickers">
-                        <Catalog />
+                        <Catalog type="Transfer Stickers" />
+                    </Route>
+                    <Route exact path="/transfer-stickers/:id">
+                        <CatalogItem />
                     </Route>
                     <Route exact path="/vinyl-lettering">
-                        <Catalog />
+                        <Catalog type="Vinyl Lettering" />
+                    </Route>
+                    <Route exact path="/vinyl-lettering/:id">
+                        <CatalogItem id=":id" />
                     </Route>
                     <Route exact path="/die-cut-stickers">
-                        <Catalog />
+                        <Catalog type="Die-Cut Stickers" />
+                    </Route>
+                    <Route exact path="/die-cut-stickers/:id">
+                        <CatalogItem id=":id" />
                     </Route>
                     <Route exact path="/about">
                         <About />
