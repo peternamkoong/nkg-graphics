@@ -48,7 +48,14 @@ export default function NKGNavbar() {
                     {isLogged.isLogged ? (
                         <Nav.Link href="/cart">
                             <Button variant="light">
-                                <FaShoppingCart /> Cart <Badge variant="dark">{counter}</Badge>
+                                <FaShoppingCart /> Cart{" "}
+                                {counter !== 0 ? (
+                                    <Badge show={false} variant="dark">
+                                        {counter}
+                                    </Badge>
+                                ) : (
+                                    <></>
+                                )}
                             </Button>
                         </Nav.Link>
                     ) : (
