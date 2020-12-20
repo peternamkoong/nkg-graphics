@@ -151,7 +151,7 @@ export default function Contact(props) {
                                     </Form.Label>
                                     <Form.File name="exampleFormControlFile" />
                                 </Form.Group>
-                                <Button size="lg" block variant="primary" type="submit">
+                                <Button size="lg" block variant="dark" type="submit">
                                     Submit
                                 </Button>
                             </Form>

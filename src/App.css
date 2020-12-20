@@ -2,6 +2,11 @@
     font-family: 'Roboto', sans-serif
 }
 
+.cartTableColumns {
+    text-align:center;
+    vertical-align: middle;
+}
+
 .instructionsTable {
     font-size: large;
     border-collapse:separate; 

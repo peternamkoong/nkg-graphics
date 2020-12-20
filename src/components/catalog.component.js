@@ -3,14 +3,14 @@ import axios from "axios";
 import SideBar from "./sidebar.component";
 import { Image, Jumbotron, Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import TransferSticker from "../images/sticker.png";
+//import TransferSticker from "../images/sticker.png";
 import Switch from "react-bootstrap/esm/Switch";
 import CatalogItem from "./catalogItem.component";
 
 export default function Catalog(props) {
     const [items, setItems] = useState([]);
     const [path, setPath] = useState("");
-    const [filter, setFilter] = useState([]);
+    //const [filter, setFilter] = useState([]);
     const [type, setType] = useState(props.type);
     const [image, setImage] = useState("");
     const [category, setCategory] = useState("");

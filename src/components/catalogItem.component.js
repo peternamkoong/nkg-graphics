@@ -1,19 +1,27 @@
 import react, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Jumbotron, Image, Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
-import { CirclePicker, BlockPicker, GithubPicker } from "react-color";
+import { Jumbotron, Image, Container, Row, Col, Form, Button, Spinner, Modal } from "react-bootstrap";
+import { BlockPicker } from "react-color";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../actions";
 
 export default function CatalogItem(props) {
+    const isLogged = useSelector((state) => state.isLogged);
     const [ID, setID] = useState(useParams().id);
-    const [quantities, setQuantities] = useState([]);
-    const [sizes, setSizes] = useState([]);
+    const [show, setShow] = useState(false);
     const [item, setItem] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [form, setForm] = useState({
+        id: ID,
         quantity: 1,
-        size: "5 x 5",
-        colour: "#FFFFFF",
+        size: '5" x 5"',
+        colour: "#ffffff",
+        name: "",
+        unitPrice: 5,
+        totalPrice: 5,
+        type: "",
+        imagePath: "",
     });
     const colors = [
         "#FFFFFF",
@@ -32,11 +40,18 @@ export default function CatalogItem(props) {
         "#FF8B00",
         "#8C4000",
     ];
-
+    console.log(item);
+    const dispatch = useDispatch();
     useEffect(() => {
         setIsLoading(true);
         axios.get("http://localhost:5000/catalog/getCatalogItem", { params: { id: ID } }).then((response) => {
             setItem(response.data);
+            setForm({
+                ...form,
+                name: response.data.name,
+                type: response.data.type,
+                imagePath: response.data.imagePath,
+            });
             console.log(response.data);
             setIsLoading(false);
         });
@@ -56,7 +71,7 @@ export default function CatalogItem(props) {
         let domElement = [];
         if (isLoading === false) {
             item.variant.forEach((size) => {
-                domElement.push(<option>{size.height + `" x ` + size.width + `"`}</option>);
+                domElement.push(<option>{`${size.height}" x ${size.width}"`}</option>);
             });
         }
         return domElement;
@@ -65,11 +80,27 @@ export default function CatalogItem(props) {
     function handleChange(e) {
         const target = e.target;
         const name = target.name;
-        setForm({
-            ...form,
-            [name]: target.value,
-        });
-        console.log(name + ": " + target.value);
+        if (name === "size") {
+            const newSize = target.value;
+            item.variant.forEach((size) => {
+                const itemSize = `${size.height}" x ${size.width}"`;
+                if (itemSize === newSize) {
+                    setForm({
+                        ...form,
+                        [name]: target.value,
+                        unitPrice: size.price,
+                        totalPrice: size.price * form.quantity,
+                    });
+                }
+            });
+        } else if (name === "quantity") {
+            const newQuantity = target.value;
+            setForm({
+                ...form,
+                [name]: target.value,
+                totalPrice: form.unitPrice * newQuantity,
+            });
+        }
     }
 
     function handleChangeColor(color, e) {
@@ -83,10 +114,32 @@ export default function CatalogItem(props) {
     function handleSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log(form);
+        const newForm = {
+            ...form,
+            quantity: parseInt(form.quantity),
+        };
+        dispatch(addItem(newForm));
+        handleShow();
     }
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Item Added to Cart</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Your item(s) have successfully been added to the cart!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Continue Shopping
+                    </Button>
+                    <Button variant="primary" href="/cart">
+                        Go to Cart
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <Jumbotron className="mb-0">
                 <h1 style={{ fontSize: "50px", fontWeight: "bold" }}>{item.type + ": " + item.name}</h1>
             </Jumbotron>
@@ -133,11 +186,25 @@ export default function CatalogItem(props) {
                                             colors={colors}
                                         />
                                     </Form.Group>
+                                    <Form.Group controlId="formUnitPrice">
+                                        <Form.Label>Unit Price</Form.Label>
+                                        <Form.Control name="unitPrice" value={"$" + form.unitPrice} disabled />
+                                    </Form.Group>
+                                    <Form.Group controlId="formTotalPrice">
+                                        <Form.Label>Total Price</Form.Label>
+                                        <Form.Control name="totalPrice" value={"$" + form.totalPrice} disabled />
+                                    </Form.Group>
                                     <br />
                                     <Form.Group>
-                                        <Button type="submit" block>
-                                            Add to Cart
-                                        </Button>
+                                        {isLogged.isLogged ? (
+                                            <Button variant="dark" type="submit" block>
+                                                Add to Cart
+                                            </Button>
+                                        ) : (
+                                            <Button variant="dark" type="submit" block disabled>
+                                                Sign in to add to cart
+                                            </Button>
+                                        )}
                                     </Form.Group>
                                 </Form>
                             </Col>

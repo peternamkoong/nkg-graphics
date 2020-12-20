@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Container, Carousel, Row, Col, Jumbotron, Image } from "react-bootstrap";
 
 import NKGNavbar from "./components/navbar.component";
 import Footer from "./components/footer.component";
@@ -12,6 +11,11 @@ import Contact from "./components/contact.component";
 import Switch from "react-bootstrap/esm/Switch";
 import About from "./components/about.component";
 import CatalogItem from "./components/catalogItem.component";
+import Cart from "./components/cart.component";
+import Checkout from "./components/checkout.component";
+import ProfileSettings from "./components/profileSettings.component";
+import SignIn from "./components/signIn.component";
+import SignUp from "./components/signUp.component";
 
 export default function App() {
     return (
@@ -46,6 +50,21 @@ export default function App() {
                     </Route>
                     <Route exact path="/contact">
                         <Contact />
+                    </Route>
+                    <Route exact path="/cart">
+                        <Cart />
+                    </Route>
+                    <Route exact path="/checkout">
+                        <Checkout />
+                    </Route>
+                    <Route exact path="/profile-settings">
+                        <ProfileSettings />
+                    </Route>
+                    <Route exact path="/sign-in">
+                        <SignIn />
+                    </Route>
+                    <Route exact path="/sign-up">
+                        <SignUp />
                     </Route>
                 </Switch>
 

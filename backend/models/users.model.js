@@ -3,13 +3,6 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
     {
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-            trim: true,
-            minlength: 3,
-        },
         firstName: {
             type: String,
             required: true,
@@ -20,15 +13,43 @@ const userSchema = new Schema(
             required: true,
             trim: true,
         },
-        password: {
+        email: {
             type: String,
             required: true,
+            unique: true,
+            trim: true,
+            minlength: 3,
         },
-        address: {
+        phoneNumber: {
             type: String,
             required: true,
             trim: true,
         },
+        password: {
+            type: String,
+            required: true,
+        },
+        billingAddress: {
+            billingName: String,
+            address: String,
+            city: String,
+            province: String,
+            postalCode: String,
+            phone: String,
+        },
+        paymentMethod: {
+            paymentName: String,
+            cardNumber: String,
+            month: String,
+            year: String,
+            code: String,
+        },
+        orders: [
+            {
+                orderNumber: Number,
+                details: Schema.Types.Mixed,
+            },
+        ],
     },
     {
         timestamps: true,

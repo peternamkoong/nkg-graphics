@@ -1,10 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { Nav, Navbar, NavDropdown, Button, Badge } from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
 import NKG from "../images/NKG White 50x50.png";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "../actions";
+import { withRouter } from "react-router-dom";
 
 export default function NKGNavbar() {
+    const dispatch = useDispatch();
+    const isLogged = useSelector((state) => state.isLogged);
+    console.log(isLogged);
+    const counter = useSelector((state) => {
+        let i = 0;
+        state.cart.forEach((item) => {
+            i += item.quantity;
+        });
+        return i;
+    });
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Navbar.Brand href="/">
@@ -19,19 +31,29 @@ export default function NKGNavbar() {
                     <Nav.Link href="/custom-order">Custom Order</Nav.Link>
                 </Nav>
                 <Nav>
-                    <NavDropdown title="Profile" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/profileSettings">Profile Settings</NavDropdown.Item>
-                        <NavDropdown.Item>Log out</NavDropdown.Item>
-                    </NavDropdown>
                     <Nav.Link href="/about">About Us</Nav.Link>
                     <Nav.Link href="/contact">Contact</Nav.Link>
+                    {isLogged.isLogged ? (
+                        <NavDropdown title="Profile" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="/profile-settings">Profile Settings</NavDropdown.Item>
+                            <NavDropdown.Item href="/" onClick={() => dispatch(signOut())}>
+                                Log out
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    ) : (
+                        <Nav.Link href="/sign-in">Sign In</Nav.Link>
+                    )}
                 </Nav>
                 <Nav>
-                    <Nav.Link href="cart">
-                        <Button>
-                            <FaShoppingCart /> Cart <Badge variant="light">9</Badge>
-                        </Button>
-                    </Nav.Link>
+                    {isLogged.isLogged ? (
+                        <Nav.Link href="/cart">
+                            <Button variant="light">
+                                <FaShoppingCart /> Cart <Badge variant="dark">{counter}</Badge>
+                            </Button>
+                        </Nav.Link>
+                    ) : (
+                        <></>
+                    )}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
