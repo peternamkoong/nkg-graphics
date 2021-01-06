@@ -40,3 +40,18 @@ export const signOut = () => {
         type: "SIGN_OUT",
     };
 };
+
+export const emptyCart = () => {
+    return {
+        type: "EMPTY_CART",
+    };
+};
+
+export const filter = (filteredSearch) => {
+    return {
+        type: "FILTER",
+        payload: {
+            filter: filteredSearch,
+        },
+    };
+};

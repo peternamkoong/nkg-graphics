@@ -16,6 +16,9 @@ import Checkout from "./components/checkout.component";
 import ProfileSettings from "./components/profileSettings.component";
 import SignIn from "./components/signIn.component";
 import SignUp from "./components/signUp.component";
+import CustomOrder from "./components/customOrder.component";
+import PastOrders from "./components/pastOrders.component";
+import OrderConfirmation from "./components/orderConfirmation.component";
 
 export default function App() {
     return (
@@ -65,6 +68,15 @@ export default function App() {
                     </Route>
                     <Route exact path="/sign-up">
                         <SignUp />
+                    </Route>
+                    <Route exact path="/custom-order">
+                        <CustomOrder />
+                    </Route>
+                    <Route exact path="/past-orders">
+                        <PastOrders />
+                    </Route>
+                    <Route exact path="/order-confirmation/:id">
+                        <OrderConfirmation />
                     </Route>
                 </Switch>
 

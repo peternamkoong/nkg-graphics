@@ -17,9 +17,11 @@ const cartReducer = (state = [], action) => {
                         item.colour === action.payload.item.colour
                 );
                 const newQuantity = state[index].quantity + action.payload.item.quantity;
+                const newTotal = newQuantity * state[index].unitPrice;
                 const newItem = {
                     ...action.payload.item,
                     quantity: newQuantity,
+                    totalPrice: newTotal,
                 };
                 return [...state.slice(0, index), newItem, ...state.slice(index + 1)];
             }
@@ -44,7 +46,8 @@ const cartReducer = (state = [], action) => {
                     item.colour === action.payload.item.colour
             );
             return [...state.slice(0, index), newItem, ...state.slice(index + 1)];
-
+        case "EMPTY_CART":
+            return [];
         default:
             return state;
     }

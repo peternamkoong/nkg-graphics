@@ -176,15 +176,17 @@ export default function CatalogItem(props) {
                                             {loadSizes()}
                                         </Form.Control>
                                     </Form.Group>
-                                    <Form.Group controlId="formColor">
-                                        <Form.Label>Colour</Form.Label>
-                                        <BlockPicker
-                                            color={form.colour}
-                                            value={form.colour}
-                                            name="colour"
-                                            onChangeComplete={handleChangeColor}
-                                            colors={colors}
-                                        />
+                                    <Form.Group className="justify-content-center" controlId="formColor">
+                                        <div className="colourDiv" style={{ backgroundColor: "gray" }}>
+                                            <Form.Label style={{ color: "white" }}>Colour</Form.Label>
+                                            <BlockPicker
+                                                color={form.colour}
+                                                value={form.colour}
+                                                name="colour"
+                                                onChangeComplete={handleChangeColor}
+                                                colors={colors}
+                                            />
+                                        </div>
                                     </Form.Group>
                                     <Form.Group controlId="formUnitPrice">
                                         <Form.Label>Unit Price</Form.Label>

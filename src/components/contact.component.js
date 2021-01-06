@@ -63,7 +63,7 @@ export default function Contact(props) {
                     </Alert>
                 </Container>
             </Jumbotron>
-            <Jumbotron className="mb-0" style={{ backgroundColor: "#fbfbfb" }}>
+            <Jumbotron className="mb-0" style={{ backgroundColor: "white" }}>
                 <Container>
                     <Row className="justify-content-md-center">
                         <Col xs={6}>

@@ -27,5 +27,5 @@ app.use("/users", usersRouter);
 app.use("/invoices", invoiceRouter);
 
 app.listen(port, () => {
-    console.log(`Server is running on part: ${port}`);
+    console.log(`Server is running on port: ${port}`);
 });

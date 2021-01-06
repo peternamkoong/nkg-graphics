@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Jumbotron, Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Jumbotron, Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 export default function ProfileSettings(props) {
@@ -155,6 +155,7 @@ export default function ProfileSettings(props) {
         } else if (account.password !== account.confirm) {
             setError(true);
         } else {
+            setSuccess(true);
             axios.put("http://localhost:5000/users/updateAccount", {
                 id: id,
                 firstName: account.firstName,
@@ -183,6 +184,7 @@ export default function ProfileSettings(props) {
         if (form2.checkValidity() === false) {
             setValidated(true);
         } else {
+            setSuccess(true);
             axios.put("http://localhost:5000/users/updateBilling", {
                 id: id,
                 billingAddress: billingAddress,
@@ -207,6 +209,7 @@ export default function ProfileSettings(props) {
         if (form2.checkValidity() === false) {
             setValidated(true);
         } else {
+            setSuccess(true);
             axios.put("http://localhost:5000/users/updatePayment", {
                 id: id,
                 paymentMethod: paymentMethod,
@@ -231,6 +234,16 @@ export default function ProfileSettings(props) {
                             </p>
                         </Col>
                     </Row>
+                    <Alert
+                        show={success}
+                        style={{ textAlign: "center" }}
+                        onClose={() => setSuccess(false)}
+                        variant="success"
+                        dismissible
+                    >
+                        <Alert.Heading>Update Successful!</Alert.Heading>
+                        <p>Saved Successfully</p>
+                    </Alert>
                 </Container>
             </Jumbotron>
             <Jumbotron className="mb-0" style={{ backgroundColor: "#fbfbfb" }}>

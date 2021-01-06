@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# Hello, My name is Kyoung Hwan Namkoong and this is my COMP 482 Assignment 3 project.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Instructions on how to run the system:
 
-## Available Scripts
+1.  Download Node.js (version 14.15.1 or newer) from this link: https://nodejs.org/en/.
+2.  Install Node.js on your computer.
+3.  Download Microsoft Visual Studio Code (https://code.visualstudio.com/)
+4.  Install Visual Studio Code on your computer.
+5.  Open Visual Studio Code and click on File -> Open Folder... to the "nkg-graphics" folder
+6.  Click Terminal -> New Terminal and you should see the terminal open up at the bottom of Visual Studio Code
+7.  first, run the following command to check that node has been installed correctly: 
+        node -v
+    Make sure that it returns a value of "v14.15.1" or newer
+8.  Next, run the following command to make sure the node package manager is installed:
+        npm -v
+    It should return a value of "6.14.8" or newer
+9.  Next, we will install all the front end libraries using the following command:
+        npm install
+10. Afterwards, we will move to the back end and install the back end libraries as well:
+    First, run the following command to change the directory to the backend:
+        cd backend
+    Next, run the following command to install the backend libraries:
+        npm install
+11. While the terminal is still in the backend directory, start the Server
+    Run this command to start the server
+        npm start server
+    You should get the following messages
+        Server is running on port: 5000
+        MongoDB database connection established successfully
+12. Open another terminal by following step 6.
+13. We will run a command to run the front end now
+    First, confirm that the terminal has been opened in the frontend, and not the backend:
 
-In the project directory, you can run:
+    Run this command to run the front end
+        npm run start
+    It will take a few seconds to load, but the front end has started, a new tab/window should open to
+    the localhost:3000 URL
+14. You should now be able to explore the full NKG Graphics system with access to the database I have created.
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

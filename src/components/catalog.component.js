@@ -3,25 +3,30 @@ import axios from "axios";
 import SideBar from "./sidebar.component";
 import { Image, Jumbotron, Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-//import TransferSticker from "../images/sticker.png";
 import Switch from "react-bootstrap/esm/Switch";
 import CatalogItem from "./catalogItem.component";
+import { useSelector } from "react-redux";
 
 export default function Catalog(props) {
+    const filteredText = useSelector((state) => state.filter.filter);
     const [items, setItems] = useState([]);
     const [path, setPath] = useState("");
-    //const [filter, setFilter] = useState([]);
     const [type, setType] = useState(props.type);
     const [image, setImage] = useState("");
     const [category, setCategory] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    let [filteredCatalog, setFilteredCatalog] = useState([]);
 
     useEffect(() => {
         setIsLoading(true);
         axios.get("http://localhost:5000/catalog/getAllTypes", { params: { type: type } }).then((response) => {
             setItems(response.data);
             setIsLoading(false);
-            console.log(response.data);
+            setFilteredCatalog(
+                response.data.filter((item) => {
+                    return item.name.toLowerCase().indexOf(filteredText.toLowerCase()) !== -1;
+                })
+            );
         });
         if (type === "Transfer Stickers") {
             setImage("logo");
@@ -33,14 +38,18 @@ export default function Catalog(props) {
             setImage("sticker");
             setPath("/die-cut-stickers/");
         }
-    }, [category]);
+    }, [filteredText]);
 
     function filterItems(filter) {
         console.log(filter);
         axios
             .get("http://localhost:5000/catalog/getFilteredType", { params: { type: type, category: filter } })
             .then((response) => {
-                setItems(response.data);
+                setFilteredCatalog(
+                    response.data.filter((item) => {
+                        return item.name.toLowerCase().indexOf(filteredText.toLowerCase()) !== -1;
+                    })
+                );
                 console.log(response.data);
             });
     }
@@ -72,20 +81,20 @@ export default function Catalog(props) {
                         ) : (
                             <Container style={{ maxWidth: "100%" }}>
                                 <Row>
-                                    {items.map((item) => {
+                                    {filteredCatalog.map((i) => {
                                         return (
                                             <Col xs={3}>
                                                 <Card>
                                                     <Router>
-                                                        <Card.Img variant="top" src={`../${item.imagePath}`} />
+                                                        <Card.Img variant="top" src={`../${i.imagePath}`} />
                                                         <Card.Body>
-                                                            <Card.Title>{item.name}</Card.Title>
-                                                            <Card.Text>{item.description}</Card.Text>
+                                                            <Card.Title>{i.name}</Card.Title>
+                                                            <Card.Text>{i.description}</Card.Text>
                                                             <Button
                                                                 block
                                                                 size="lg"
-                                                                href={path + item._id}
-                                                                params={{ id: item._id }}
+                                                                href={path + i._id}
+                                                                params={{ id: i._id }}
                                                                 variant="dark"
                                                             >
                                                                 More Details
@@ -93,13 +102,13 @@ export default function Catalog(props) {
                                                         </Card.Body>
                                                         <Switch>
                                                             <Route exact path="/transfer-stickers/:id">
-                                                                <CatalogItem id={item._id} />
+                                                                <CatalogItem id={i._id} />
                                                             </Route>
                                                             <Route exact path="/vinyl-lettering/:id">
-                                                                <CatalogItem id={item._id} />
+                                                                <CatalogItem id={i._id} />
                                                             </Route>
                                                             <Route exact path="/die-cut-stickers/:id">
-                                                                <CatalogItem id={item._id} />
+                                                                <CatalogItem id={i._id} />
                                                             </Route>
                                                         </Switch>
                                                     </Router>

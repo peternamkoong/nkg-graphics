@@ -4,7 +4,6 @@ import { FaShoppingCart } from "react-icons/fa";
 import NKG from "../images/NKG White 50x50.png";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "../actions";
-import { withRouter } from "react-router-dom";
 
 export default function NKGNavbar() {
     const dispatch = useDispatch();
@@ -36,8 +35,9 @@ export default function NKGNavbar() {
                     {isLogged.isLogged ? (
                         <NavDropdown title="Profile" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/profile-settings">Profile Settings</NavDropdown.Item>
+                            <NavDropdown.Item href="/past-orders">Past Orders</NavDropdown.Item>
                             <NavDropdown.Item href="/" onClick={() => dispatch(signOut())}>
-                                Log out
+                                Log Out
                             </NavDropdown.Item>
                         </NavDropdown>
                     ) : (

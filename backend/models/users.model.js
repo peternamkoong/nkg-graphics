@@ -46,6 +46,24 @@ const userSchema = new Schema(
         },
         orders: [
             {
+                billingAddress: {
+                    billingName: String,
+                    address: String,
+                    city: String,
+                    province: String,
+                    postalCode: String,
+                    phone: String,
+                },
+                paymentMethod: {
+                    paymentName: String,
+                    cardNumber: String,
+                    month: String,
+                    year: String,
+                    code: String,
+                },
+                totalQuantity: Number,
+                orderTotal: String,
+                orderDate: String,
                 orderNumber: Number,
                 details: Schema.Types.Mixed,
             },

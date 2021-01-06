@@ -10,6 +10,7 @@ export default function Cart(props) {
     const [showRemove, setShowRemove] = useState(false);
     const dispatch = useDispatch();
     const cartState = useSelector((state) => state.cart);
+    console.log(cartState);
 
     function handleChange(item, e) {
         const target = e.target;
@@ -206,9 +207,13 @@ export default function Cart(props) {
                             {LoadCart()}
                         </Table>
                         <br />
-                        <Button variant="dark" href="/checkout" size="lg" block>
-                            Proceed to Checkout
-                        </Button>
+                        {cartState.length == 0 ? (
+                            <></>
+                        ) : (
+                            <Button variant="dark" href="/checkout" size="lg" block>
+                                Proceed to Checkout
+                            </Button>
+                        )}
                     </Col>
                 </Row>
             </Container>
