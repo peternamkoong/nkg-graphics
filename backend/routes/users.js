@@ -106,7 +106,6 @@ router.route("/updateCustomOrders").put((request, response) => {
         let orderQuantity = 0;
         let orderTotal = "CUSTOM";
         let orderDate = new Date();
-
         request.body.order.forEach((section) => {
             orderQuantity += parseInt(section.quantity);
         });

@@ -19,7 +19,7 @@ export default function Invoice(props) {
                 setOrder(response.data[0]);
                 setIsLoading(false);
             });
-    }, []);
+    }, [isLogged.email, props.id]);
     var CAD = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "CAD",
@@ -123,7 +123,7 @@ export default function Invoice(props) {
             salesPrice += item.totalPrice;
         });
         salesTax += (provGST / 100) * salesPrice + (provPST / 100) * salesPrice;
-        if (salesPrice == undefined) {
+        if (salesPrice === undefined) {
             domElement.push(
                 <tr>
                     <td>CUSTOM</td>

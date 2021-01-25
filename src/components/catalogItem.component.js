@@ -1,17 +1,18 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Jumbotron, Image, Container, Row, Col, Form, Button, Spinner, Modal } from "react-bootstrap";
+import { Jumbotron, Image, Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
 import { BlockPicker } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../actions";
+import _ from "lodash";
+import Loading from "./loading.component";
 
 export default function CatalogItem(props) {
     const isLogged = useSelector((state) => state.isLogged);
     const [ID, setID] = useState(useParams().id);
     const [show, setShow] = useState(false);
     const [item, setItem] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
     const [form, setForm] = useState({
         id: ID,
         quantity: 1,
@@ -40,10 +41,9 @@ export default function CatalogItem(props) {
         "#FF8B00",
         "#8C4000",
     ];
-    console.log(item);
+
     const dispatch = useDispatch();
     useEffect(() => {
-        setIsLoading(true);
         axios.get("http://localhost:5000/catalog/getCatalogItem", { params: { id: ID } }).then((response) => {
             setItem(response.data);
             setForm({
@@ -52,24 +52,22 @@ export default function CatalogItem(props) {
                 type: response.data.type,
                 imagePath: response.data.imagePath,
             });
-            console.log(response.data);
-            setIsLoading(false);
         });
-    }, []);
+    }, [ID]);
 
     function loadQuantities() {
         let domElement = [];
-        if (isLoading === false) {
+        if (_.isEmpty(item) === false) {
             for (let i = 1; i <= 100; i++) {
                 domElement.push(<option>{i}</option>);
             }
         }
-
         return domElement;
     }
+
     function loadSizes() {
         let domElement = [];
-        if (isLoading === false) {
+        if (_.isEmpty(item) === false) {
             item.variant.forEach((size) => {
                 domElement.push(<option>{`${size.height}" x ${size.width}"`}</option>);
             });
@@ -143,10 +141,8 @@ export default function CatalogItem(props) {
             <Jumbotron className="mb-0">
                 <h1 style={{ fontSize: "50px", fontWeight: "bold" }}>{item.type + ": " + item.name}</h1>
             </Jumbotron>
-            {isLoading ? (
-                <Spinner animation="border" role="status">
-                    <span className="sr-only">Loading...</span>
-                </Spinner>
+            {_.isEmpty(item) ? (
+                <Loading />
             ) : (
                 <Jumbotron className="mb-0" style={{ backgroundColor: "#fbfbfb" }}>
                     <Container>

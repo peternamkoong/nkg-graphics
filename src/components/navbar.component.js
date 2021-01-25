@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Nav, Navbar, NavDropdown, Button, Badge } from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
 import NKG from "../images/NKG White 50x50.png";

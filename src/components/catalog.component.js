@@ -6,44 +6,38 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Switch from "react-bootstrap/esm/Switch";
 import CatalogItem from "./catalogItem.component";
 import { useSelector } from "react-redux";
+import _ from "lodash";
 
 export default function Catalog(props) {
     const filteredText = useSelector((state) => state.filter.filter);
-    const [items, setItems] = useState([]);
     const [path, setPath] = useState("");
-    const [type, setType] = useState(props.type);
     const [image, setImage] = useState("");
-    const [category, setCategory] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
     let [filteredCatalog, setFilteredCatalog] = useState([]);
 
     useEffect(() => {
-        setIsLoading(true);
-        axios.get("http://localhost:5000/catalog/getAllTypes", { params: { type: type } }).then((response) => {
-            setItems(response.data);
-            setIsLoading(false);
+        axios.get("http://localhost:5000/catalog/getAllTypes", { params: { type: props.type } }).then((response) => {
             setFilteredCatalog(
                 response.data.filter((item) => {
                     return item.name.toLowerCase().indexOf(filteredText.toLowerCase()) !== -1;
                 })
             );
         });
-        if (type === "Transfer Stickers") {
+        if (props.type === "Transfer Stickers") {
             setImage("logo");
             setPath("/transfer-stickers/");
-        } else if (type === "Vinyl Lettering") {
+        } else if (props.type === "Vinyl Lettering") {
             setImage("text");
             setPath("/vinyl-lettering/");
-        } else if (type === "Die-Cut Stickers") {
+        } else if (props.type === "Die-Cut Stickers") {
             setImage("sticker");
             setPath("/die-cut-stickers/");
         }
-    }, [filteredText]);
+    }, [filteredText, props.type]);
 
     function filterItems(filter) {
         console.log(filter);
         axios
-            .get("http://localhost:5000/catalog/getFilteredType", { params: { type: type, category: filter } })
+            .get("http://localhost:5000/catalog/getFilteredType", { params: { type: props.type, category: filter } })
             .then((response) => {
                 setFilteredCatalog(
                     response.data.filter((item) => {
@@ -53,14 +47,13 @@ export default function Catalog(props) {
                 console.log(response.data);
             });
     }
-
     return (
         <>
             <Jumbotron className="mb-2" fluid>
                 <Container>
                     <Row>
                         <Col xs={9}>
-                            <h1 style={{ fontSize: "50px", fontWeight: "bold" }}>{type}</h1>
+                            <h1 style={{ fontSize: "50px", fontWeight: "bold" }}>{props.type}</h1>
                         </Col>
                         <Col xs={3}>
                             <Image src={`../images/${image}.png`} height="100px" />
@@ -71,10 +64,10 @@ export default function Catalog(props) {
             <Container style={{ maxWidth: "100%" }}>
                 <Row>
                     <Col xs={3} style={{ boxShadow: "3px 3px 3px #9E9E9E" }}>
-                        <SideBar type={type} filterItems={filterItems} />
+                        <SideBar type={props.type} filterItems={filterItems} />
                     </Col>
                     <Col xs={9}>
-                        {isLoading ? (
+                        {_.isEmpty(filteredCatalog) ? (
                             <Spinner animation="border" role="status">
                                 <span className="sr-only">Loading...</span>
                             </Spinner>

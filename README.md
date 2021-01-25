@@ -21,7 +21,7 @@ Instructions on how to run the system:
         cd backend
     Next, run the following command to install the backend libraries:
         npm install
-11. While the terminal is still in the backend directory, start the Server
+11. While the terminal is still in the backend directory, start the Ser ver
     Run this command to start the server
         npm start server
     You should get the following messages

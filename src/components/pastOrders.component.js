@@ -11,7 +11,7 @@ export default function PastOrders(props) {
         axios.get("http://localhost:5000/users/getUser", { params: { email: isLogged.email } }).then((response) => {
             setOrders(response.data[0].orders);
         });
-    }, []);
+    }, [isLogged.email]);
 
     function LoadOrders() {
         let domElement = [];

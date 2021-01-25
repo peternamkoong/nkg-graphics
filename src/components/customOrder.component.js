@@ -1,5 +1,5 @@
-import { Jumbotron, Container, Row, Col, Alert, Form, Button, Card, CardDeck } from "react-bootstrap";
-import { react, useState, useEffect } from "react";
+import { Jumbotron, Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -88,25 +88,31 @@ export default function CustomOrder(props) {
     function handleSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-        axios
-            .put("http://localhost:5000/users/updateCustomOrders", { email: isLogged.email, order: form.sections })
-            .then((response) => {
-                setOrderNumber(response.data);
-                setForm({
-                    sections: [
-                        {
-                            lengths: 0,
-                            width: 0,
-                            colour: "",
-                            quantity: 0,
-                            name: "",
-                            description: "",
-                        },
-                    ],
+        const form2 = e.currentTarget;
+        if (form2.checkValidity() === false) {
+            setValidated(true);
+        } else {
+            axios
+                .put("http://localhost:5000/users/updateCustomOrders", { email: isLogged.email, order: form.sections })
+                .then((response) => {
+                    setOrderNumber(response.data);
+                    setForm({
+                        sections: [
+                            {
+                                lengths: 0,
+                                width: 0,
+                                colour: "",
+                                quantity: 0,
+                                name: "",
+                                description: "",
+                            },
+                        ],
+                    });
+                    setRedirect(true);
                 });
-                setRedirect(true);
-            });
+        }
     }
+
     function removeSection(i) {
         const newArray = [...form.sections.slice(0, i), ...form.sections.slice(i + 1)];
         setForm({

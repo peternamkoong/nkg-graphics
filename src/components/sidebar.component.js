@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { ListGroup, Form, InputGroup } from "react-bootstrap";
+import { ListGroup, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { filter } from "../actions";
+import _ from "lodash";
+import Loading from "./loading.component";
+
 export default function SideBar(props) {
     const [categories, setCategories] = useState([]);
     const filteredText = useSelector((state) => state.filter.filter);
@@ -15,11 +18,14 @@ export default function SideBar(props) {
         } else if (props.type === "Die-Cut Stickers") {
             setCategories(["KakaoFriends"]);
         }
-    }, []);
+    }, [dispatch, props.type]);
 
     function handleChange(e) {
         const target = e.target;
         dispatch(filter(target.value));
+    }
+    if (_.isEmpty(categories)) {
+        return <Loading />;
     }
     return (
         <>

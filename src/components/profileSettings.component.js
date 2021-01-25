@@ -99,42 +99,37 @@ export default function ProfileSettings(props) {
         year: "",
         code: "",
     });
-    useEffect(
-        () => {
-            axios.get("http://localhost:5000/users/getUser", { params: { email: isLogged.email } }).then((response) => {
-                const profile = response.data[0];
-                console.log(profile);
-                setId(profile._id);
-                setAccount({
-                    firstName: profile.firstName,
-                    lastName: profile.lastName,
-                    email: profile.email,
-                    phoneNumber: profile.phoneNumber,
-                    password: profile.password,
-                    confirm: profile.password,
-                });
-                setBillingAddress({
-                    billingName: profile.billingAddress.billingName,
-                    address: profile.billingAddress.address,
-                    city: profile.billingAddress.city,
-                    province: profile.billingAddress.province,
-                    postalCode: profile.billingAddress.postalCode,
-                    phone: profile.billingAddress.phone,
-                });
-
-                setPaymentMethod({
-                    paymentName: profile.paymentMethod.paymentName,
-                    cardNumber: profile.paymentMethod.cardNumber,
-                    month: profile.paymentMethod.month,
-                    year: profile.paymentMethod.year,
-                    code: profile.paymentMethod.code,
-                });
+    useEffect(() => {
+        axios.get("http://localhost:5000/users/getUser", { params: { email: isLogged.email } }).then((response) => {
+            const profile = response.data[0];
+            console.log(profile);
+            setId(profile._id);
+            setAccount({
+                firstName: profile.firstName,
+                lastName: profile.lastName,
+                email: profile.email,
+                phoneNumber: profile.phoneNumber,
+                password: profile.password,
+                confirm: profile.password,
             });
-        },
-        account,
-        billingAddress,
-        paymentMethod
-    );
+            setBillingAddress({
+                billingName: profile.billingAddress.billingName,
+                address: profile.billingAddress.address,
+                city: profile.billingAddress.city,
+                province: profile.billingAddress.province,
+                postalCode: profile.billingAddress.postalCode,
+                phone: profile.billingAddress.phone,
+            });
+
+            setPaymentMethod({
+                paymentName: profile.paymentMethod.paymentName,
+                cardNumber: profile.paymentMethod.cardNumber,
+                month: profile.paymentMethod.month,
+                year: profile.paymentMethod.year,
+                code: profile.paymentMethod.code,
+            });
+        });
+    }, [isLogged.email]);
 
     function handleAccountChange(e) {
         const target = e.target;
@@ -452,7 +447,7 @@ export default function ProfileSettings(props) {
                                         >
                                             <option></option>
                                             {GSTPST.map((prov) => (
-                                                <option>{prov.province}</option>
+                                                <option key={prov.province}>{prov.province}</option>
                                             ))}
                                         </Form.Control>
                                         <Form.Control.Feedback type="invalid">
@@ -542,18 +537,18 @@ export default function ProfileSettings(props) {
                                             required
                                         >
                                             <option></option>
-                                            <option>01</option>
-                                            <option>02</option>
-                                            <option>03</option>
-                                            <option>04</option>
-                                            <option>05</option>
-                                            <option>06</option>
-                                            <option>07</option>
-                                            <option>08</option>
-                                            <option>09</option>
-                                            <option>10</option>
-                                            <option>11</option>
-                                            <option>12</option>
+                                            <option key="01">01</option>
+                                            <option key="02">02</option>
+                                            <option key="03">03</option>
+                                            <option key="04">04</option>
+                                            <option key="05">05</option>
+                                            <option key="06">06</option>
+                                            <option key="07">07</option>
+                                            <option key="08">08</option>
+                                            <option key="09">09</option>
+                                            <option key="10">10</option>
+                                            <option key="11">11</option>
+                                            <option key="12">12</option>
                                         </Form.Control>
                                         <Form.Control.Feedback type="invalid">
                                             Please provide the expiration month

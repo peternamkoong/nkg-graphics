@@ -1,7 +1,7 @@
 import { Jumbotron, Container, Row, Col, Button, Image, Form, Table, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem, removeItem, updateQuantity } from "../actions/index";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Cart(props) {
     const [message, setMessage] = useState("");
@@ -50,7 +50,6 @@ export default function Cart(props) {
         }
         return domElement;
     }
-    useEffect(() => {}, [cartState]);
 
     function colourFormat(colour) {
         console.log(colour);
@@ -207,7 +206,7 @@ export default function Cart(props) {
                             {LoadCart()}
                         </Table>
                         <br />
-                        {cartState.length == 0 ? (
+                        {cartState.length === 0 ? (
                             <></>
                         ) : (
                             <Button variant="dark" href="/checkout" size="lg" block>

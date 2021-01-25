@@ -2,7 +2,6 @@ import { Jumbotron, Container, Row, Col, Form, Table, Image, Button } from "reac
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import _ from "lodash";
 import { Redirect } from "react-router-dom";
 import { emptyCart } from "../actions";
 
@@ -86,7 +85,6 @@ export default function Checkout(props) {
     const [GSTPrice, setGSTPrice] = useState(0.0);
     const [PSTPrice, setPSTPrice] = useState(0.0);
     const [PST, setPST] = useState(0);
-    const [id, setId] = useState("");
     const cartState = useSelector((state) => state.cart);
     const isLogged = useSelector((state) => state.isLogged);
     const [orderTotal, setOrderTotal] = useState("");
@@ -124,7 +122,6 @@ export default function Checkout(props) {
         axios.get("http://localhost:5000/users/getUser", { params: { email: isLogged.email } }).then((response) => {
             const profile = response.data[0];
             setProfile(profile);
-            setId(profile._id);
             setBilling({
                 billingName: profile.billingAddress.billingName,
                 address: profile.billingAddress.address,

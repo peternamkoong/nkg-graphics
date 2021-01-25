@@ -75,21 +75,26 @@ export default function Homepage(props) {
                     <Row className="pb-5 justify-content-md-center">
                         <Carousel>
                             <Carousel.Item>
-                                <img className="carousel" src={CarolHotWorks} width={1100} />
+                                <img
+                                    className="carousel"
+                                    src={CarolHotWorks}
+                                    width={1100}
+                                    alt="Carol Hotworks Decals"
+                                />
                                 <Carousel.Caption>
                                     <h3>First slide label</h3>
                                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                                 </Carousel.Caption>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <img className="carousel" src={Lawganizer} width={1100} />
+                                <img className="carousel" src={Lawganizer} width={1100} alt="Lawganizer Decals" />
                                 <Carousel.Caption>
                                     <h3>Second slide label</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                 </Carousel.Caption>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <img className="carousel" src={Hyattstone} width={1100} />
+                                <img className="carousel" src={Hyattstone} width={1100} alt="Hyattstone Truck Decals" />
 
                                 <Carousel.Caption>
                                     <h3>Third slide label</h3>
